@@ -1,0 +1,9 @@
+.block_autobackup .linktoactivityinfo img.actionicon,
+.block_autobackup .linktodownload img.actionicon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    height: 64px;
+    width: 64px;
+}
