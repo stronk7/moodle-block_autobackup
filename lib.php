@@ -175,7 +175,7 @@ function block_autobackup_get_download_link($block) {
     }
 
     // Let's create the link to download the activity backup.
-    $url = new moodle_url('/block/autobackup/download.php', array('cmid' => $currentmodule->id));
+    $url = new moodle_url('/blocks/autobackup/download.php', array('cmid' => $currentmodule->id));
     $pix = new pix_icon('t/download', null, 'moodle', array('class' => 'actionicon'));
     $title = get_string('linktodownload', 'block_autobackup');
     $link = $OUTPUT->action_link($url, $pix, null, array('title' => $title));
