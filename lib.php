@@ -109,6 +109,55 @@ function block_autobackup_get_database_link($block) {
     return '';
 }
 
+function block_autobackup_get_activity_link($block) {
+    global $DB, $OUTPUT;
+
+    // Only if the user can view the link to the activity.
+    if (!has_capability('block/autobackup:link', $block->context)) {
+        return '';
+    }
+
+    // Get the current coursemodule we are viewing.
+    $currentmodule = $block->page->cm;
+
+    // Only if we are in the metadata database
+    if ($currentmodule->id != $block->config->cmid) {
+        return '';
+    }
+
+    // Only if we are displaying 1 record.
+    if (!$rid = optional_param('rid', 0, PARAM_INT)) {
+        return '';
+    }
+
+    // Get the target database id.
+    $databasemodule = get_coursemodule_from_id('data', $block->config->cmid);
+    $databaseid = $databasemodule->instance;
+
+    // Search the database current record for fieldid
+    $params = array(
+        'dataid' => $databaseid,
+        'fieldid' => $block->config->fieldid,
+        'recordid' => $rid);
+    $record = $DB->get_record_sql('
+            SELECT c.content
+            FROM {data_records} r
+            JOIN {data_content} c ON (c.recordid = r.id)
+            WHERE r.dataid = :dataid
+              AND c.fieldid = :fieldid
+              AND r.id = :recordid', $params);
+    // Matching record found, let's create the link.
+    if ($record) {
+        $url = new moodle_url($record->content);
+        $pix = new pix_icon('i/hide', null, 'moodle', array('class' => 'actionicon'));
+        $title = get_string('linktoactivity', 'block_autobackup');
+        $link = $OUTPUT->action_link($url, $pix, null, array('title' => $title));
+        $html = html_writer::tag('div', $link, array('class' => 'linktoactivity'));
+        return $html;
+    }
+}
+
+
 function block_autobackup_get_download_link($block) {
     global $OUTPUT;
 
@@ -119,6 +168,11 @@ function block_autobackup_get_download_link($block) {
 
     // Get the current coursemodule we are viewing.
     $currentmodule = $block->page->cm;
+
+    // If the activity is the metadata repository, nothing to download.
+    if ($currentmodule->id == $block->config->cmid) {
+        return '';
+    }
 
     // Let's create the link to download the activity backup.
     $url = new moodle_url('/block/autobackup/download.php', array('cmid' => $currentmodule->id));

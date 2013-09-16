@@ -30,5 +30,6 @@ $string['autobackup:generate'] = 'Descargar un backup de la actividad';
 $string['autobackup:link'] = 'Enlazar con la ficha en la base de datos';
 $string['configcmid'] = 'Base de datos id del módulo';
 $string['configfieldid'] = 'Base de datos id del campo';
+$string['linktoactivity'] = 'Ver la actividad';
 $string['linktoactivityinfo'] = 'Ficha completa de la actividad';
 $string['linktodownload'] = 'Descargar la actividad';

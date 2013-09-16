@@ -90,7 +90,8 @@ class block_autobackup extends block_base {
         }
 
         // Arrived here, we may have some content to show.
-        $output = block_autobackup_get_database_link($this); // The link to the database.
+        $output = block_autobackup_get_database_link($this); // The link to the database (from activity).
+        $output.= block_autobackup_get_activity_link($this); // The link to the activity (from database).
         $output.= block_autobackup_get_download_link($this); // The link to the download.
 
         // If there are output, let's return it.

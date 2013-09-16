@@ -30,5 +30,6 @@ $string['autobackup:generate'] = 'Download an activity backup';
 $string['autobackup:link'] = 'Link to the activity database record';
 $string['configcmid'] = 'Database course module id';
 $string['configfieldid'] = 'Database field id';
+$string['linktoactivity'] = 'Activity display';
 $string['linktoactivityinfo'] = 'Activity information card';
 $string['linktodownload'] = 'Activity download';
