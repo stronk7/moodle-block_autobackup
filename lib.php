@@ -98,9 +98,9 @@ function block_autobackup_get_database_link($block) {
     // Matching record found, let's create the link.
     if ($record) {
         $url = new moodle_url('/mod/data/view.php', array('d' => $databaseid, 'rid' => $record->id));
-        $pix = new pix_icon('help', null, null, array('class' => 'actionicon'));
+        $pix = new pix_icon('help', null, 'moodle', array('class' => 'actionicon'));
         $title = get_string('linktoactivityinfo', 'block_autobackup');
-        $link = $OUTPUT->action_link($url, null, null, array('title' => $title), $pix);
+        $link = $OUTPUT->action_link($url, $pix, null, array('title' => $title));
         $html = html_writer::tag('div', $link, array('class' => 'linktoactivityinfo'));
         return $html;
     }
@@ -122,9 +122,9 @@ function block_autobackup_get_download_link($block) {
 
     // Let's create the link to download the activity backup.
     $url = new moodle_url('/block/autobackup/download.php', array('cmid' => $currentmodule->id));
-    $pix = new pix_icon('t/download', null, null, array('class' => 'actionicon'));
+    $pix = new pix_icon('t/download', null, 'moodle', array('class' => 'actionicon'));
     $title = get_string('linktodownload', 'block_autobackup');
-    $link = $OUTPUT->action_link($url, null, null, array('title' => $title), $pix);
+    $link = $OUTPUT->action_link($url, $pix, null, array('title' => $title));
     $html = html_writer::tag('div', $link, array('class' => 'linktodownload'));
     return $html;
 }
