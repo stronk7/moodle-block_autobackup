@@ -47,7 +47,7 @@ if (!has_capability('block/autobackup:download', $blockctx)) {
 }
 
 // Let's calculate the final name of the backup file.
-$backupname = core_text::strtolower(core_text::specialtoascii($cm->name));
+$backupname = textlib::strtolower(textlib::specialtoascii($cm->name));
 $backupname = str_replace(' ', '_', $backupname) . '.mbz';
 
 // Check if there is any 1d or newer backup available. We'll be using it
