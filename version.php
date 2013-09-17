@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2013091205;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2013091500;        // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2012062500;        // Requires this Moodle version (v2.3.0).
 $plugin->component = 'block_autobackup';
 

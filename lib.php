@@ -114,7 +114,7 @@ function block_autobackup_get_database_link($block) {
 }
 
 function block_autobackup_get_activity_link($block) {
-    global $DB, $OUTPUT;
+    global $CFG, $DB, $OUTPUT;
 
     // Only if the user can view the link to the activity.
     if (!has_capability('block/autobackup:link', $block->context)) {
@@ -150,6 +150,12 @@ function block_autobackup_get_activity_link($block) {
             WHERE r.dataid = :dataid
               AND c.fieldid = :fieldid
               AND r.id = :recordid', $params);
+    // The url must match wwwroot/mod/xxxxx/view.php?id=yyyy
+    // to allow the eye to point to an activity main page.
+    $pregprefix = preg_quote($CFG->wwwroot . '/mod/');
+    if (!preg_match('!^' . $pregprefix . '[a-z_]*\/view.php\?id=[0-9]*$!', trim($record->content))) {
+        $record = false;
+    }
     // Matching record found, let's create the link.
     if ($record) {
         $url = new moodle_url($record->content);
