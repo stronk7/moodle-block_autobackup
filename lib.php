@@ -88,7 +88,7 @@ function block_autobackup_get_database_link($block) {
         'dataid' => $databaseid,
         'fieldid' => $block->config->fieldid,
         'search' => '%/view.php?id=' . $currentmodule->id);
-    $record = $DB->get_record_sql('
+    $records = $DB->get_records_sql('
             SELECT r.id
             FROM {data_records} r
             JOIN {data_content} c ON (c.recordid = r.id)
@@ -96,12 +96,16 @@ function block_autobackup_get_database_link($block) {
               AND c.fieldid = :fieldid
               AND ' . $DB->sql_like('content', ':search', false), $params);
     // Matching record found, let's create the link.
-    if ($record) {
+    if ($records) {
+        $record = reset($records); // If there are multiple, pick the 1st one.
         $url = new moodle_url('/mod/data/view.php', array('d' => $databaseid, 'rid' => $record->id));
         $pix = new pix_icon('help', null, 'moodle', array('class' => 'actionicon'));
         $title = get_string('linktoactivityinfo', 'block_autobackup');
-        $link = $OUTPUT->action_link($url, $pix, null, array('title' => $title));
-        $html = html_writer::tag('div', $link, array('class' => 'linktoactivityinfo'));
+        $content = $OUTPUT->action_link($url, $pix, null, array('title' => $title));
+        if (count($records) > 1 && is_siteadmin()) { // Inform of multiples to admins.
+            $content .= html_writer::tag('span', get_string('warnmultiplerecords', 'block_autobackup'), array('class' => 'error'));
+        }
+        $html = html_writer::tag('div', $content, array('class' => 'linktoactivityinfo'));
         return $html;
     }
 

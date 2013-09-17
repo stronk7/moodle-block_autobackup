@@ -33,3 +33,4 @@ $string['configfieldid'] = 'Database field id';
 $string['linktoactivity'] = 'Activity display';
 $string['linktoactivityinfo'] = 'Activity information card';
 $string['linktodownload'] = 'Activity download';
+$string['warnmultiplerecords'] = 'Error: Multiple metadata records point to this activity!';

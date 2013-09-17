@@ -33,3 +33,4 @@ $string['configfieldid'] = 'Base de datos id del campo';
 $string['linktoactivity'] = 'Ver la actividad';
 $string['linktoactivityinfo'] = 'Ficha completa de la actividad';
 $string['linktodownload'] = 'Descargar la actividad';
+$string['warnmultiplerecords'] = 'Error: Múltiples registros de metadatos apuntan a esta actividad!';
